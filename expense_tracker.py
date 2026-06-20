@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import date
 import os
 
 # Verbind met de database. 
@@ -22,8 +23,26 @@ cursor.execute("""
 connection.commit()
 connection.close()
 
-if os.path.exists("expenses.db"):
-    print("Bestand is al aangemaakt.")
-else:
-    print("Database klaar! Tabel 'expenses' is aangemaakt.")
+def database_exists():
+    if os.path.exists("expenses.db"):
+        return True
+    else:
+        return False
+print(database_exists())
+
+def add_expenses(amount, category, description):
+    connection = sqlite3.connect("expenses.db")
+    cursor = connection.cursor()
+
+    today = date.today().isoformat()
+
+    cursor.execute(
+        "INSERT INTO expenses (amount, category, description, date) VALUES (?,?,?,?)",
+            (amount, category, description, today)
+
+    )
+    connection.commit()
+    connection.close()
+    print(f"Uitgave toegevoegd: €{amount} ({category})")
+
 
