@@ -33,7 +33,7 @@ class App:
             print(f"[{id}] €{amount:.2f} | {category} | {description} | {d}")
     
     def add_income(self):
-        amount = float(input)
+        amount = float(input("Bedrag: €"))
         source = input("Van wie/wat? ")
         description = input("Omschrijving: ")
         income = Income(amount, source, description, date.today().isoformat())
@@ -49,7 +49,27 @@ class App:
             print(f"[{id}] €{amount:.2f} | {source} | {description} | {d}")
 
 
-        def delete_expense(self):
-            self.show_expense()
-            count = self.expense_repo.delete(int(input("Welk id verwijderen")))
-        pass
+    def delete_expense(self):
+        self.show_expense()
+        count = self.expense_repo.delete(int(input("Welk id verwijderen")))
+        print("Verwijderd." if count else "Niet gevonden.")
+    
+    def run(self):
+        while True:
+            self.show_menu()
+            choice = input("Keuze: ")
+            if choice == "1":
+                self.add_expense()
+            elif choice == "2":
+                self.show_expenses()
+            elif choice == "3":
+                self.delete_expense()
+            elif choice == "4":
+                self.add_income()
+            elif choice == "5":
+                self.show_income()
+            elif choice == "0":
+                print("Tot ziens! 👋")
+                break
+            else:
+                print("Ongeldige keuze.")
