@@ -34,3 +34,8 @@ class IncomeRepository:
     def get_all(self):
         self.db.cursor.execute("SELECT id, amount, source, description, date FROM income")
         return self.db.cursor.fetchall()
+    
+    def total(self):
+        self.db.cursor.execute("SELECT SUM(amount) FROM expenses")
+        return self.db.cursor.fetchone()[0] or 0
+    

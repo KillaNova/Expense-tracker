@@ -13,6 +13,7 @@ class App:
         print("3. Uitgaven verwijderen")
         print("4. Inkomst toevoegen")
         print("5. Inkomsten tonen")
+        print("6. Winst- en verliesoverzicht")
         print("0. Afsluiten")
         print("=======================================")
 
@@ -68,8 +69,24 @@ class App:
                 self.add_income()
             elif choice == "5":
                 self.show_income()
+            elif choice == "6":
+                self.show_profit()
             elif choice == "0":
                 print("Tot ziens! 👋")
                 break
             else:
                 print("Ongeldige keuze.")
+
+    def show_profit(self):
+        income = self.income_repo.total()
+        expenses = self.expense_repo.total()
+        profit = income - expenses
+
+        print("\n--- WINST & VERLIES ---")
+        print(f"Inkomsten: €{income:.2f}")
+        print(f"Uitgaven: €{expenses:.2f}")
+        print("-" * 23)
+        if profit >= 0:
+            print(f"WINST:      €{profit:.2f} ")
+        else:
+            print(f"VERLIES:    €{-profit:.2f} ")
