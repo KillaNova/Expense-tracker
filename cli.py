@@ -1,5 +1,6 @@
 from datetime import date
 from models import Expense, Income
+from importer import CsvImporter
 
 class App:
     def __init__(self, expense_repo, income_repo):
@@ -14,6 +15,7 @@ class App:
         print("4. Inkomst toevoegen")
         print("5. Inkomsten tonen")
         print("6. Winst- en verliesoverzicht")
+        print("7. Importeer uitgaven (CSV)")
         print("0. Afsluiten")
         print("=======================================")
 
@@ -71,6 +73,8 @@ class App:
                 self.show_income()
             elif choice == "6":
                 self.show_profit()
+            elif choice == "7":
+                self.import_csv()
             elif choice == "0":
                 print("Tot ziens! 👋")
                 break
@@ -90,3 +94,11 @@ class App:
             print(f"WINST:      €{profit:.2f} ")
         else:
             print(f"VERLIES:    €{-profit:.2f} ")
+
+    def import_csv(self):
+        filename = input("Bestandsnaam (bijv. import.csv): ")
+        try:
+            importer = CsvImporter(self.expense_repo)
+            importer.import_expenses(filename)
+        except FileNotFoundError:
+            print(f"Bestand '{filename}' niet gevonden.")
