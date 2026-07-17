@@ -19,6 +19,30 @@ class App:
         print("0. Afsluiten")
         print("=======================================")
 
+    def run(self):
+        while True:
+            self.show_menu()
+            choice = input("Keuze: ")
+            if choice == "1":
+                self.add_expense()
+            elif choice == "2":
+                self.show_expenses()
+            elif choice == "3":
+                self.delete_expense()
+            elif choice == "4":
+                self.add_income()
+            elif choice == "5":
+                self.show_income()
+            elif choice == "6":
+                self.show_profit()
+            elif choice == "7":
+                self.import_csv()
+            elif choice == "0":
+                print("Tot ziens! 👋")
+                break
+            else:
+                print("Ongeldige keuze.")
+
     def add_expense(self):
         amount = float(input("Bedrag €"))
         category = input("Categorie: ")
@@ -56,30 +80,7 @@ class App:
         self.show_expense()
         count = self.expense_repo.delete(int(input("Welk id verwijderen")))
         print("Verwijderd." if count else "Niet gevonden.")
-    
-    def run(self):
-        while True:
-            self.show_menu()
-            choice = input("Keuze: ")
-            if choice == "1":
-                self.add_expense()
-            elif choice == "2":
-                self.show_expenses()
-            elif choice == "3":
-                self.delete_expense()
-            elif choice == "4":
-                self.add_income()
-            elif choice == "5":
-                self.show_income()
-            elif choice == "6":
-                self.show_profit()
-            elif choice == "7":
-                self.import_csv()
-            elif choice == "0":
-                print("Tot ziens! 👋")
-                break
-            else:
-                print("Ongeldige keuze.")
+
 
     def show_profit(self):
         income = self.income_repo.total()
