@@ -6,7 +6,7 @@ class ExpensesRepository:
 
     def add(self, expense):
         self.db.cursor.execute(
-            "INSTERT INTO expenses (amount, category, description, date) VALUES (?,?,?,?)",
+            "INSERT INTO expenses (amount, category, description, date) VALUES (?,?,?,?)",
             (expense.amount, expense.category, expense.description, expense.date)
         )
         self.db.connection.commit()
